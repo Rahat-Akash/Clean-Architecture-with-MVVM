@@ -11,7 +11,15 @@ import SwiftUI
 struct Clean_Arc_with_MVVMApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            let remote = TodoRemoteDataSource()
+            let repo = TodoRepositoryImple(remoteDataSource: remote)
+            
+            ContentView(viewModel: TodoListViewModel(
+                getTodos: GetTodoUseCase(repository: repo),
+                createTodo: CreateTodoUseCase(repository: repo),
+                updateTodo: UpdateTodoUseCase(repository: repo),
+                deleteTodo: DeleteTodoUseCase(repository: repo)
+            ))
         }
     }
 }

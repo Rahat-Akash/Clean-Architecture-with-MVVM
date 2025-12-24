@@ -53,7 +53,7 @@ final class DeleteTodoUseCase{
         self.repository = repository
     }
     
-    func execute(todo: Todo) async throws{
-        try await repository.deleteTodo(id: todo.id)
+    func execute(id: Int) async throws{
+        try await repository.deleteTodo(id: id)
     }
 }
