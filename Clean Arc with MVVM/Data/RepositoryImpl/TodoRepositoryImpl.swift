@@ -13,8 +13,19 @@ final class TodoRepositoryImple: TodoRepository{
     }
     
     func fetchTodos() async throws -> [Todo] {
-        let dtos = try await remoteDataSource.fetchTodos()
-        return dtos.map {$0.toDomain()}
+        try await remoteDataSource.fetchTodos().map{ $0.toDomain()}
+    }
+    
+    func createTodo(title: String) async throws -> Todo {
+        try await remoteDataSource.createTodo(title: title).toDomain()
+    }
+    
+    func updateTodo(todo: Todo) async throws -> Todo{
+        try await remoteDataSource.updateTodo(todo: todo.toDTO()).toDomain()
+    }
+    
+    func deleteTodo(id: Int) async throws {
+        try await remoteDataSource.deleteTodo(id: id)
     }
 }
 
